@@ -16,13 +16,21 @@
     header img{height:54px;width:auto;display:block;margin:0 auto 14px}
     header h1{margin:0;font-size:26px;letter-spacing:.4px}
     header p{margin:6px 0 0;font-size:14px;opacity:.85;line-height:1.5}
+    /* Card pulled up so the install button overlaps the header — it is the
+       first and largest thing the eye and thumb land on (Fitts). */
     .card{background:#fff;border:1px solid #e2e8f2;border-radius:14px;
-          padding:20px;margin-top:18px}
-    .btn{display:block;width:100%;padding:16px;border:0;border-radius:11px;
-         font-size:17px;font-weight:600;text-align:center;text-decoration:none;
+          padding:20px;margin-top:-26px;position:relative;
+          box-shadow:0 8px 30px rgba(14,47,92,.10)}
+    /* One loud button, nothing else competing with it (Von Restorff): big hit
+       area, heavy weight, lifted off the page with a coloured shadow. */
+    .btn{display:flex;align-items:center;justify-content:center;gap:10px;
+         width:100%;padding:20px;border:0;border-radius:12px;
+         font-size:18px;font-weight:700;text-align:center;text-decoration:none;
          cursor:pointer;font-family:inherit}
-    .btn-primary{background:#0e2f5c;color:#fff}
-    .btn-primary:active{background:#0a2246}
+    .btn svg{width:22px;height:22px;flex-shrink:0}
+    .btn-primary{background:#0e2f5c;color:#fff;
+                 box-shadow:0 10px 24px rgba(14,47,92,.30)}
+    .btn-primary:active{background:#0a2246;transform:translateY(1px)}
     .btn-secondary{background:#fff;color:#0e2f5c;border:1.5px solid #0e2f5c;margin-top:10px}
     .meta{text-align:center;font-size:12.5px;color:#7c8ba1;margin:10px 0 0}
     .warn{background:#fff8e6;border:1px solid #f2dfae;border-radius:11px;
@@ -58,7 +66,13 @@
   </div>
 
   <div class="card">
-    <button class="btn btn-primary" id="pwa">Install UNIFIX</button>
+    <button class="btn btn-primary" id="pwa">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+      </svg>
+      Install UNIFIX
+    </button>
     <p class="meta">Adds UNIFIX to your home screen. Works on Android &amp; iPhone.</p>
 
     <!-- Manual steps, shown on tap when the one-tap prompt isn't available
