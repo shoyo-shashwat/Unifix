@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 824 600" role="img" aria-labelledby="unifix-phil-title unifix-phil-desc">
+  <title id="unifix-phil-title">UNIFIX — one loop, nothing dropped</title>
+  <desc id="unifix-phil-desc">Every issue reported at GL Bajaj travels one loop: Reported, then In progress, then Resolved, and the closing segment returns to the start. A pin-and-check mark sits at the centre of the loop.</desc>
+
+  <rect width="824" height="600" rx="22" fill="#F4F7FB"/>
+
+  <defs>
+    <marker id="unifix-arrow" viewBox="0 0 10 10" refX="7" refY="5"
+            markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#12885A"/>
+    </marker>
+    <mask id="unifix-phil-cut">
+      <rect width="48" height="48" fill="#fff"/>
+      <path d="M16 18 L21.5 24 L31.5 12.5" fill="none" stroke="#000"
+            stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+
+  <!-- wordmark, top-left -->
+  <g transform="translate(56 50) scale(0.34)" fill="none" stroke="#0E2F5C" stroke-width="6"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 1 V16 A11 11 0 0 0 25 16 V1"/>
+    <path d="M43 31 V1 L63 31 V1"/>
+    <path d="M83 1 V31"/>
+    <path d="M99 31 V1 H117 M99 15 H113"/>
+    <path d="M131 1 V31"/>
+    <path d="M147 1 L167 31 M167 1 L147 31"/>
+  </g>
+
+  <!-- the loop -->
+  <path d="M238 176 C 430 156 556 214 620 300 C 556 386 430 452 262 430"
+        fill="none" stroke="#0E2F5C" stroke-width="6" stroke-linecap="round"/>
+  <path d="M262 430 C 150 398 150 210 236 174"
+        fill="none" stroke="#12885A" stroke-width="6" stroke-linecap="round"
+        marker-end="url(#unifix-arrow)"/>
+
+  <!-- centre plate + mark -->
+  <circle cx="424" cy="300" r="92" fill="#FFFFFF"/>
+  <circle cx="424" cy="300" r="91" fill="none" stroke="#0E2F5C" stroke-opacity="0.10" stroke-width="2"/>
+  <g transform="translate(370 244) scale(2.3)">
+    <path d="M24 46 C 16 34 9 27 9 19 A 15 15 0 1 1 39 19 C 39 27 32 34 24 46 Z"
+          fill="#0E2F5C" mask="url(#unifix-phil-cut)"/>
+  </g>
+
+  <!-- nodes -->
+  <g font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+    <!-- Reported -->
+    <circle cx="238" cy="176" r="10" fill="#0E2F5C"/>
+    <circle cx="238" cy="176" r="3.6" fill="#FFFFFF"/>
+    <text x="238" y="138" text-anchor="middle" font-size="20" font-weight="700" fill="#0E2F5C">Reported</text>
+    <text x="238" y="156" text-anchor="middle" font-size="13" fill="#5B6B7F">A photo and a place</text>
+
+    <!-- In progress -->
+    <circle cx="620" cy="300" r="10" fill="#1E5FBF"/>
+    <circle cx="620" cy="300" r="3.6" fill="#FFFFFF"/>
+    <text x="644" y="296" font-size="20" font-weight="700" fill="#1E5FBF">In progress</text>
+    <text x="644" y="314" font-size="13" fill="#5B6B7F">Assigned to the right unit</text>
+
+    <!-- Resolved -->
+    <circle cx="262" cy="430" r="10" fill="#12885A"/>
+    <circle cx="262" cy="430" r="3.6" fill="#FFFFFF"/>
+    <text x="262" y="462" text-anchor="middle" font-size="20" font-weight="700" fill="#12885A">Resolved</text>
+    <text x="262" y="480" text-anchor="middle" font-size="13" fill="#5B6B7F">Verified, then closed</text>
+  </g>
+
+  <!-- statement -->
+  <text x="56" y="524" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+        font-size="30" font-weight="800" letter-spacing="-0.4" fill="#0E2F5C">One loop. Nothing dropped.</text>
+  <text x="56" y="554" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+        font-size="16" fill="#5B6B7F">Every issue reported at GL Bajaj runs the same path —</text>
+  <text x="56" y="576" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+        font-size="16" fill="#5B6B7F">from a photo on a phone to a signed-off fix.</text>
+</svg>

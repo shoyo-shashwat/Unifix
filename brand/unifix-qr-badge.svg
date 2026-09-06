@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="unifix-qr-title">
+  <title id="unifix-qr-title">UNIFIX QR centre badge</title>
+  <desc>An opaque white disc carrying the navy UNIFIX pin mark, sized to sit in the middle of a QR code.</desc>
+  <mask id="unifix-qr-cut">
+    <rect width="48" height="48" fill="#fff"/>
+    <path d="M16 18 L21.5 24 L31.5 12.5" fill="none" stroke="#000"
+          stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </mask>
+  <circle cx="60" cy="60" r="58" fill="#FFFFFF"/>
+  <circle cx="60" cy="60" r="57" fill="none" stroke="#0E2F5C" stroke-opacity="0.12" stroke-width="2"/>
+  <g transform="translate(26 30) scale(1.4)">
+    <path d="M24 46 C 16 34 9 27 9 19 A 15 15 0 1 1 39 19 C 39 27 32 34 24 46 Z"
+          fill="#0E2F5C" mask="url(#unifix-qr-cut)"/>
+  </g>
+</svg>
