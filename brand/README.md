@@ -29,7 +29,8 @@ ends, built on a grid — things made of parts, kept in repair.
 | `unifix-tile.svg` | App icon — navy rounded square, white pin, green check. Home-screen, store listing. |
 | `unifix-logo-horizontal.svg` | Mark + wordmark. Headers, letterhead, email signature. |
 | `unifix-logo-stacked.svg` | Mark over wordmark + "Report it. Track it. Done." Posters, the QR sheet, splash. |
-| `unifix-qr-badge.svg` | The mark on an opaque white disc, sized to drop into the centre of a QR code. |
+| `unifix-qr-badge.svg` | The mark on an opaque white disc, for dropping into a QR you generate elsewhere. |
+| `qr-unifix-install.svg` | **The install QR** — ready to print. Regenerate with `scripts/make_qr.py`. |
 | `unifix-philosophy.svg` | The report → resolve loop, for decks and onboarding. |
 
 ## Palette
@@ -43,17 +44,34 @@ ends, built on a grid — things made of parts, kept in repair.
 | mist | `#F4F7FB` | Background |
 | slate | `#5B6B7F` | Secondary text |
 
-## Putting the mark in a QR code
+## The install QR
 
-1. Generate the QR at error-correction level **H** (30%) — it tolerates a
-   covered centre.
-2. Overlay `unifix-qr-badge.svg` centred, at **18–22%** of the QR's width. Do
-   not go bigger.
-3. Keep the QR's own quiet zone (4 modules of white) around the outside.
-4. Scan-test with two phones before printing.
+`qr-unifix-install.svg` is generated, not hand-assembled. To point it somewhere
+else — a custom domain, a different path — regenerate it:
 
-The white disc in the badge is deliberate — it gives the scanner a clean break
-and the pin a plain field to sit on.
+```bash
+py -3.13 -m pip install segno        # build-time only, not in requirements.txt
+py -3.13 scripts/make_qr.py https://your-host/get
+```
+
+**The URL currently baked in is `https://unipulse-main-wdif.onrender.com/get-app`**
+— the path the live Render deploy serves. This repo's code serves `/get`
+instead. Confirm which one the deployed build answers before you print
+anything.
+
+How it is built, and why it still scans:
+
+- Error-correction level **H** (~30% recoverable), which is what buys a covered
+  centre.
+- Badge diameter **27%** of the QR body. A centred disc of diameter *d* hides
+  π(*d*/2)² of the area — 27% costs about 5.7%, comfortably inside the budget.
+- Quiet zone of 4 modules on every side, per the spec.
+- Verified by decoding the rendered code with OpenCV at badge sizes from 20% to
+  45%; all read back the exact URL. 27% is deliberately conservative so the
+  code survives ink spread, low light and a creased poster.
+
+Still scan-test the final print with two different phones. A decoder on clean
+pixels is not a camera on paper.
 
 ## Clear space &amp; minimum size
 
