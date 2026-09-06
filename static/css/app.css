@@ -226,6 +226,19 @@ img.evidence{max-width:100%;border-radius:var(--r-sm);border:1px solid var(--lin
 .seg button.on{background:#fff;color:var(--navy);box-shadow:var(--shadow-sm)}
 .auth-foot{text-align:center;color:var(--faint);font-size:12px;margin:16px 0 26px}
 
+/* First-run install prompt on the login screen. Isolated colour + full-width
+   tap target (Fitts) right below the form so it reads before the hint text. */
+.install-cta{display:flex;align-items:center;gap:12px;margin:18px 0 0;padding:14px 16px;
+  background:var(--navy-soft);border:1.5px solid var(--navy);border-radius:var(--r);
+  color:var(--navy);box-shadow:var(--shadow-sm);text-decoration:none}
+.install-cta:active{filter:brightness(.97)}
+.install-cta b{display:block;font-size:14.5px;line-height:1.25}
+.install-cta small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.35}
+.install-cta .ico{font-size:22px;flex-shrink:0}
+.install-cta .arw{margin-left:auto;font-size:18px;flex-shrink:0;font-weight:700}
+body.admin-login .install-cta{background:rgba(255,255,255,.06);border-color:var(--green);color:#fff}
+body.admin-login .install-cta small{color:#a9bcd6}
+
 @media(min-width:640px){ body{background:var(--bg)} }
 :focus-visible{outline:3px solid var(--green);outline-offset:2px}
 [hidden]{display:none!important}
