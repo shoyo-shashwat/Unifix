@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e2f5c">
+  <title>Get UNIFIX &middot; {{ glb.short }}</title>
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+  <link rel="icon" href="{{ url_for('static', filename='icons/icon-192.png') }}">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         background:#f4f7fb;color:#12243a;-webkit-text-size-adjust:100%}
+    .wrap{max-width:520px;margin:0 auto;padding:0 18px 56px}
+    header{background:#0e2f5c;color:#fff;padding:34px 18px 30px;text-align:center}
+    header img{height:54px;width:auto;display:block;margin:0 auto 14px}
+    header h1{margin:0;font-size:26px;letter-spacing:.4px}
+    header p{margin:6px 0 0;font-size:14px;opacity:.85;line-height:1.5}
+    .card{background:#fff;border:1px solid #e2e8f2;border-radius:14px;
+          padding:20px;margin-top:18px}
+    .btn{display:block;width:100%;padding:16px;border:0;border-radius:11px;
+         font-size:17px;font-weight:600;text-align:center;text-decoration:none;
+         cursor:pointer;font-family:inherit}
+    .btn-primary{background:#0e2f5c;color:#fff}
+    .btn-primary:active{background:#0a2246}
+    .btn-secondary{background:#fff;color:#0e2f5c;border:1.5px solid #0e2f5c;margin-top:10px}
+    .meta{text-align:center;font-size:12.5px;color:#7c8ba1;margin:10px 0 0}
+    .warn{background:#fff8e6;border:1px solid #f2dfae;border-radius:11px;
+          padding:14px 16px;margin-top:18px;font-size:14px;line-height:1.55}
+    .warn b{display:block;margin-bottom:6px;color:#8a6100}
+    h2{font-size:15px;margin:22px 0 10px;color:#0e2f5c;text-transform:uppercase;
+       letter-spacing:.6px}
+    ol{margin:0;padding-left:20px}
+    ol li{line-height:1.65;font-size:14.5px;margin-bottom:10px}
+    .quote{background:#f0f3f8;border-radius:7px;padding:7px 10px;margin-top:5px;
+           font-size:13.5px;color:#3c4a5e;font-style:italic}
+    .hide{display:none}
+    footer{text-align:center;font-size:12.5px;color:#8798ad;margin-top:30px;line-height:1.8}
+    footer a{color:#1e5fbf;text-decoration:none}
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="{{ url_for('static', filename='img/glb-logo.webp') }}" alt="{{ glb.short }}">
+  <h1>UNIFIX</h1>
+  <p>Campus Grievance &amp; Infrastructure Portal<br>{{ glb.name }}</p>
+</header>
+
+<div class="wrap">
+
+  <!-- Shown only inside WhatsApp / Instagram / Facebook in-app browsers -->
+  <div class="warn hide" id="inapp">
+    <b>Open this page in Chrome first</b>
+    Downloads do not work inside the WhatsApp browser. Tap the
+    <strong>&vellip;</strong> or <strong>&bull;&bull;&bull;</strong> menu in the top corner and choose
+    <strong>&ldquo;Open in Chrome&rdquo;</strong> or <strong>&ldquo;Open in browser&rdquo;</strong>, then come back here.
+  </div>
+
+  <div class="card">
+    {% if apk_available %}
+      <a class="btn btn-primary" href="{{ url_for('public.download_apk') }}" id="dl">
+        Download UNIFIX for Android
+      </a>
+      <p class="meta">Version {{ apk_version }} &middot; {{ apk_size }} &middot; Android 6.0 or newer</p>
+    {% else %}
+      <button class="btn btn-primary" disabled style="opacity:.45">
+        Android app coming soon
+      </button>
+      <p class="meta">Use the instant install option below in the meantime.</p>
+    {% endif %}
+
+    <!-- Revealed only when Chrome offers a real PWA install prompt -->
+    <button class="btn btn-secondary hide" id="pwa">
+      Or install instantly (no download)
+    </button>
+  </div>
+
+  {% if apk_available %}
+  <div class="warn">
+    <b>Android will show you two warnings. Both are normal.</b>
+    UNIFIX is distributed by {{ glb.short }} directly instead of through the Play Store,
+    so Android cannot recognise it automatically. Nothing is wrong with the app.
+  </div>
+
+  <h2>What you will see</h2>
+  <ol>
+    <li>
+      Chrome asks whether to keep the file.
+      <div class="quote">&ldquo;This type of file can harm your device. Keep unifix.apk anyway?&rdquo;</div>
+      Tap <strong>Download anyway</strong> or <strong>OK</strong>.
+    </li>
+    <li>
+      Open the downloaded file. Android says this source is not allowed yet.
+      <div class="quote">&ldquo;Your phone isn&rsquo;t allowed to install unknown apps from this source&rdquo;</div>
+      Tap <strong>Settings</strong>, turn on <strong>Allow from this source</strong>, then press back.
+    </li>
+    <li>
+      Tap <strong>Install</strong>.
+    </li>
+    <li>
+      Play Protect may block it once.
+      <div class="quote">&ldquo;Unsafe app blocked&rdquo;</div>
+      Tap <strong>More details</strong>, then <strong>Install anyway</strong>.
+    </li>
+    <li>Open UNIFIX and sign in with the username and PIN given to you by the campus administrator.</li>
+  </ol>
+
+  <h2>After installing</h2>
+  <p style="font-size:14.5px;line-height:1.6;margin:0">
+    You never need to download this file again. UNIFIX updates itself automatically
+    whenever the campus system is updated.
+  </p>
+  {% endif %}
+
+  <footer>
+    Accounts are created by the campus administrator.<br>
+    <a href="/login">Open UNIFIX in your browser</a> &middot;
+    <a href="/privacy">Privacy</a><br>
+    Need help? {{ contact }}
+  </footer>
+</div>
+
+<script>
+(function () {
+  // 1. Warn users stuck in an in-app webview, where APK downloads silently fail.
+  var ua = navigator.userAgent || "";
+  if (/WhatsApp|FBAN|FBAV|Instagram|Line\//i.test(ua)) {
+    document.getElementById("inapp").classList.remove("hide");
+  }
+
+  // 2. Offer the native PWA install dialog when Chrome makes one available.
+  //    Chrome requires a user gesture, so we stash the event and fire it on tap.
+  var deferred = null;
+  var pwaBtn = document.getElementById("pwa");
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferred = e;
+    pwaBtn.classList.remove("hide");
+  });
+  pwaBtn.addEventListener("click", function () {
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function () { deferred = null; pwaBtn.classList.add("hide"); });
+  });
+
+  // 3. Already installed — send them straight in.
+  window.addEventListener("appinstalled", function () { location.href = "/login"; });
+})();
+</script>
+</body>
+</html>

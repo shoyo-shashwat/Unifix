@@ -1,0 +1,29 @@
+.env
+.env.*
+firebase_key.json
+*serviceaccount*.json
+*service-account*.json
+__pycache__/
+*.pyc
+.pytest_cache/
+.claude/
+.claude/**
+CLAUDE.md
+AGENTS.md
+.mcp.json
+AI_AGENT.md
+ARCHITECTURE.md
+ENGINEERING_PROGRESS.md
+MASTER_PROMPT.md
+ROADMAP.md
+
+# Real operational data / generated artifacts — never commit
+*.csv
+*.docx
+*.pptx
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Signed Android APK and its signing key — never commit
+dist/*.apk
+android.keystore
