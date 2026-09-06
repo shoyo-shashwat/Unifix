@@ -52,28 +52,34 @@
   <!-- Shown only inside WhatsApp / Instagram / Facebook in-app browsers -->
   <div class="warn hide" id="inapp">
     <b>Open this page in Chrome first</b>
-    Downloads do not work inside the WhatsApp browser. Tap the
+    Installing does not work inside the WhatsApp browser. Tap the
     <strong>&vellip;</strong> or <strong>&bull;&bull;&bull;</strong> menu in the top corner and choose
     <strong>&ldquo;Open in Chrome&rdquo;</strong> or <strong>&ldquo;Open in browser&rdquo;</strong>, then come back here.
   </div>
 
   <div class="card">
-    {% if apk_available %}
-      <a class="btn btn-primary" href="{{ url_for('public.download_apk') }}" id="dl">
-        Download UNIFIX for Android
-      </a>
-      <p class="meta">Version {{ apk_version }} &middot; {{ apk_size }} &middot; Android 6.0 or newer</p>
-    {% else %}
-      <button class="btn btn-primary" disabled style="opacity:.45">
-        Android app coming soon
-      </button>
-      <p class="meta">Use the instant install option below in the meantime.</p>
-    {% endif %}
+    <button class="btn btn-primary" id="pwa">Install UNIFIX</button>
+    <p class="meta">Adds UNIFIX to your home screen. Works on Android &amp; iPhone.</p>
 
-    <!-- Revealed only when Chrome offers a real PWA install prompt -->
-    <button class="btn btn-secondary hide" id="pwa">
-      Or install instantly (no download)
-    </button>
+    <!-- Manual steps, shown on tap when the one-tap prompt isn't available
+         (iPhone, Firefox, or the prompt was already dismissed once). -->
+    <div class="warn hide" id="manual">
+      <b>Add UNIFIX to your home screen</b>
+      <div id="manual-android">
+        Tap the <strong>&vellip;</strong> menu (top-right in Chrome), then
+        <strong>&ldquo;Add to Home screen&rdquo;</strong> or <strong>&ldquo;Install app&rdquo;</strong>.
+      </div>
+      <div id="manual-ios" class="hide">
+        Tap the <strong>Share</strong> button, then <strong>&ldquo;Add to Home Screen&rdquo;</strong>.
+      </div>
+    </div>
+
+    {% if apk_available %}
+      <p class="meta" style="margin-top:14px">
+        <a href="{{ url_for('public.download_apk') }}" id="dl">Or download the Android app (APK)</a>
+        &middot; v{{ apk_version }} &middot; {{ apk_size }}
+      </p>
+    {% endif %}
   </div>
 
   {% if apk_available %}
@@ -129,19 +135,26 @@
     document.getElementById("inapp").classList.remove("hide");
   }
 
-  // 2. Offer the native PWA install dialog when Chrome makes one available.
-  //    Chrome requires a user gesture, so we stash the event and fire it on tap.
+  // 2. Install button. Chrome hands us a deferred prompt (needs a user gesture,
+  //    so we stash it and fire it on tap). Everywhere else — iPhone, Firefox, or
+  //    after the prompt was dismissed once — fall back to written steps.
   var deferred = null;
   var pwaBtn = document.getElementById("pwa");
   window.addEventListener("beforeinstallprompt", function (e) {
     e.preventDefault();
     deferred = e;
-    pwaBtn.classList.remove("hide");
   });
   pwaBtn.addEventListener("click", function () {
-    if (!deferred) return;
-    deferred.prompt();
-    deferred.userChoice.then(function () { deferred = null; pwaBtn.classList.add("hide"); });
+    if (deferred) {
+      deferred.prompt();
+      deferred.userChoice.then(function () { deferred = null; });
+      return;
+    }
+    if (/iPhone|iPad|iPod/i.test(ua)) {
+      document.getElementById("manual-ios").classList.remove("hide");
+      document.getElementById("manual-android").classList.add("hide");
+    }
+    document.getElementById("manual").classList.remove("hide");
   });
 
   // 3. Already installed — send them straight in.
